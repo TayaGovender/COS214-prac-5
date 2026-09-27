@@ -12,17 +12,11 @@ public:
     CampusGuardMediator();
     ~CampusGuardMediator();
 
-    // Called by commands
+    void onIncidentChanged(const Incident& incident);
     bool dispatchUnit(Incident& incident, UnitType type);
     bool cancelDispatch(Incident& incident, UnitType type);
     bool coordinateAreaLockdown(CampusZone& zone, LockLevel level);
     bool coordinateEvacuation(CampusZone& zone, const std::string& reason);
-
-    // Called by Incident when its state changes
-    void onIncidentChanged(const Incident& incident);
-
-    // Called by CancelLastCommand indirectly, and by the facade
-    void standDown(Incident& incident);
 };
 
 #endif
