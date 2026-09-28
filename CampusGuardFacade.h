@@ -14,6 +14,8 @@ class AlertService;
 class CampusGuardFacade{
     private:
         CampusGuardMediator* mediator;
+        CommandDispatcher* dispatcher;
+        AlertService* alertService;
 
     public:
         CampusGuardFacade(CampusGuardMediator* mediator, CommandDispatcher* dispatcher, AlertService* alertService);

@@ -10,24 +10,25 @@ CampusGuardFacade::CampusGuardFacade(CampusGuardMediator* mediator, CommandDispa
 bool CampusGuardFacade::handleEmergency(Incident& incident, CampusZone& zone){
     std::cout << "[Facade] Starting emergency response." << std::endl;
 
-    bool locked = mediator->coordinateAreaLockdown(zone, LockLevel::Full);
-
-    if (!locked){
+    if (!mediator->coordinateAreaLockdown(zone, LockLevel::Full)) {
         std::cout << "[Facade] Failed to lock area." << std::endl;
         return false;
     }
 
-    bool dispatched = mediator->dispatchUnit(incident, UnitType::Security);
-
-    if(!dispatched){
+    if (!mediator->dispatchUnit(incident, UnitType::Security)) {
         std::cout << "[Facade] Failed to dispatch security." << std::endl;
         return false;
     }
 
+    if (alertService != nullptr) {
+        alertService->broadcastAlert(
+            AlertLevel::Critical,
+            "Emergency at " + zone.getName() + " — stay clear");
+    }
+
     mediator->reportUnsafeArea(zone);
 
-    std::cout << "[Facade] Emergency response initiated" << std::endl;
-
+    std::cout << "[Facade] Emergency response initiated." << std::endl;
     return true;
 }
 

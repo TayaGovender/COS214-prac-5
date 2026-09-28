@@ -105,7 +105,12 @@ bool CampusGuardMediator::coordinateAreaLockdown(CampusZone& zone,
                                                  LockLevel level) {
     std::cout << "[Mediator] coordinateAreaLockdown\n";
     bool locked = zone.lock(level);
-    if (locked && alertService) alertService->broadcastAlert(...);
-    if (locked && security)    security->secureArea(zone);
+    if (locked && alertService != nullptr) {
+        alertService->broadcastAlert(AlertLevel::Warning,
+            "Area secured: " + zone.getName());
+    }
+    if (locked && security != nullptr) {
+        security->secureArea(zone);
+    }
     return locked;
 }
