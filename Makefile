@@ -1,38 +1,46 @@
 CXX      := g++
-CXXFLAGS := -std=c++11 -Wall -Wextra -g
-TARGET   := campusguard_test
+CXXFLAGS := -std=c++11 -Wall -Wextra -Wpedantic -g -O0
+LDFLAGS  :=
 
-SRCS := \
-    main.cpp \
-    Incident.cpp \
-    ReportedState.cpp \
-    DispatchedState.cpp \
-    InProgressState.cpp \
-    ResolvedState.cpp \
-    CancelledState.cpp \
-    CommandDispatcher.cpp \
-    DispatchUnitCommand.cpp \
-    LockdownAreaCommand.cpp \
-    IssueEvacuationCommand.cpp \
-    ActivateAlertCommand.cpp \
-    CancelLastCommand.cpp \
-    CampusGuardMediator.cpp \
-    TestZone.cpp
+TARGET   := campusguard
 
-OBJS := $(SRCS:.cpp=.o)
 
-.PHONY: all clean run
+SRCS     := $(wildcard *.cpp)
+OBJS     := $(SRCS:.cpp=.o)
+DEPS     := $(OBJS:.o=.d)
+
+.PHONY: all run clean rebuild debug valgrind
+
 
 all: $(TARGET)
 
+
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
+
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
+
+-include $(DEPS)
+
 
 run: $(TARGET)
 	./$(TARGET)
 
+
+debug: $(TARGET)
+	gdb ./$(TARGET)
+
+
+valgrind: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all \
+	         --track-origins=yes --error-exitcode=1 \
+	         ./$(TARGET)
+
+
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(DEPS) $(TARGET)
+
+
+rebuild: clean all
