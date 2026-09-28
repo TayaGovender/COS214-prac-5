@@ -14,7 +14,7 @@ void LegacySecurity::lockGate()
 void LegacySecurity::unlockGate()
 {
     std::cout << this->name << ": Gates being unlocked now...\n";
-    std::cout << "Gates locked.\n";
+    std::cout << "Gates unlocked.\n";
 }
 void LegacySecurity::sendAlert(std::string reason)
 {

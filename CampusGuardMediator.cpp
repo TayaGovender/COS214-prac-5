@@ -82,8 +82,8 @@ void CampusGuardMediator::reportUnsafeArea(CampusZone& zone){
 void CampusGuardMediator::reportMedicalEmergency(Incident& incident){
     std::cout<<"[Mediator] Medical emergency reported." << std::endl;
 
-    if(security != nullptr){
-        security->dispatch(incident);
+    if(medical != nullptr){
+        medical->dispatch(incident);
     }
 }
 
@@ -103,6 +103,9 @@ bool CampusGuardMediator::coordinateEvacuation(CampusZone& zone,
 
 bool CampusGuardMediator::coordinateAreaLockdown(CampusZone& zone,
                                                  LockLevel level) {
-    std::cout << "[Mediator STUB] coordinateAreaLockdown\n";
-    return zone.lock(level);
+    std::cout << "[Mediator] coordinateAreaLockdown\n";
+    bool locked = zone.lock(level);
+    if (locked && alertService) alertService->broadcastAlert(...);
+    if (locked && security)    security->secureArea(zone);
+    return locked;
 }

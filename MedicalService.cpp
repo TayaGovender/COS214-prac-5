@@ -20,7 +20,7 @@ void MedicalService::standBy(Incident& incident){
     std::cout <<"[Medical] Medical is standing by " << std::endl;
 
     if(mediator != nullptr){
-        mediator->reportMedicalEmergency(indident);
+        mediator->reportMedicalEmergency(incident);
     }
 
     

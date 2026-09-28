@@ -107,7 +107,7 @@ bool CampusBlock::unlock()
 
 
     this->secure = false;
-    return false;
+    return true;
 }
 
 bool CampusBlock::restrict()

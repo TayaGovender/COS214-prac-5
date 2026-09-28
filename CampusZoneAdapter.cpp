@@ -61,5 +61,5 @@ bool CampusZoneAdapter::evacuate()
 
 bool CampusZoneAdapter::isSecure() const
 {
-    return this->secure
+    return this->secure;
 }

@@ -29,7 +29,7 @@ bool Building::unlock()
 {
     std::cout << "Building is being unlocked now\n";
     this->secure = false;
-    return false;
+    return true;
 }
 
 bool Building::restrict()
