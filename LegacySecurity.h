@@ -10,9 +10,11 @@ class LegacySecurity
         LegacySecurity(std::string name);
         void lockGate();
         void unlockGate();
-        void sendAlert();
+        void sendAlert(std::string reason);
         void checkPerimeter();
-        ~LegacySecurity();
+        ~LegacySecurity(){};
+    private:
+        std::string name;
 };
 
 #endif //LEGACY_SECURITY_H

@@ -5,18 +5,19 @@
 
 #include "LegacySecurity.h"
 #include "CampusZone.h"
+#include "CampusTypes.h"
 
-class Locklevel; // forward declaration
 
 class CampusZoneAdapter : public CampusZone
 {
     public:
-        CampusZoneAdapter();
-        bool lock(Locklevel level) override;
+        CampusZoneAdapter(LegacySecurity* adaptee, std::string name);
+        bool lock(LockLevel level) override;
         bool unlock() override; 
         bool restrict() override;
         bool evacuate() override;
-        CampusZoneAdapter();
+        bool isSecure() const override;
+        ~CampusZoneAdapter(){delete adaptee;};
     private:
         LegacySecurity* adaptee;
 };
