@@ -1,1 +1,5 @@
-.vpp
+*.vpp
+
+*.lck
+
+*.png
