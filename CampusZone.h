@@ -5,7 +5,7 @@
 
 class CampusZone {
 public:
-    CampusZone() {}
+    CampusZone(std::string name){this->name = name; this->secure = false;} //set name of zone and secure
     virtual ~CampusZone() {}
 
     // Access-control operations
@@ -20,6 +20,13 @@ public:
     // Composite child management (no-op in leaves, overridden in composites)
     virtual void addChild(CampusZone* child) {}
     virtual void removeChild(CampusZone* child) {}
+    std::string getName(){return this->name;}
+
+protected:
+    bool secure;
+
+    private:
+        std::string name; //added a name for the zone
 };
 
 #endif
