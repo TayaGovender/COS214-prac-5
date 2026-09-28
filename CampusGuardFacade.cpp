@@ -2,6 +2,7 @@
 #include "CampusGuardFacade.h"
 #include "Incident.h"
 #include "CampusZone.h"
+#include "AlertService.h"
 
 #include <iostream>
 
