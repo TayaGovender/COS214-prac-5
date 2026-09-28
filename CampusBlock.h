@@ -6,22 +6,22 @@
 #include <vector>
 
 #include "CampusZone.h"
+#include "CampusTypes.h"
 
 class CampusBlock : public CampusZone
 {
     public:
-        CampusBlock(std::string name);
+        CampusBlock(std::string name) : CampusZone(name){};
         void addChild(CampusZone* component) override;
         void removeChild(CampusZone* component) override;
-        CampusZone* removeAndGet(CampusZone* component) override;
-        //bool lock(Locklevel level) override;
+        bool lock(LockLevel level) override;
         bool unlock() override;
         bool restrict() override;
         bool evacuate() override;
-        std::string getName();
+        bool isSecure() const override;
+        void print();
         virtual ~CampusBlock();
     private:
-        std::string name;
         std::vector<CampusZone*> children;
 };
 

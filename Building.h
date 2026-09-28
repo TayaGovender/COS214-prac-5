@@ -5,19 +5,18 @@
 #include <string>
 
 #include "CampusZone.h"
+#include "CampusTypes.h"
 
 class Building : public CampusZone
 {
     public:
-        Building(std::string name);
-        //bool lock(Locklevel level) override;
+        Building(std::string name) : CampusZone(name){};
+        bool lock(LockLevel level) override;
         bool unlock() override;
         bool restrict() override;
         bool evacuate() override;
-        std::string getName();
-        virtual ~Building();
-    private:
-        std::string name;
+        bool isSecure() const override;
+        virtual ~Building(){};
 };
 
 #endif //BUILDING_H
