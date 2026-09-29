@@ -1,0 +1,9 @@
+
+services:
+  campusguard:
+    build: .
+    container_name: campusguard
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_PTRACE
